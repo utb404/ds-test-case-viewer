@@ -24,6 +24,8 @@ import { IconCheck } from '@consta/icons/IconCheck';
 import { IconHamburger } from '@consta/icons/IconHamburger';
 import { IconClose } from '@consta/icons/IconClose';
 import { IconFilter } from '@consta/icons/IconFilter';
+import { IconSun } from '@consta/icons/IconSun';
+import { IconMoon } from '@consta/icons/IconMoon';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './App.css';
 
@@ -70,6 +72,38 @@ function App() {
   });
   const [showFilters, setShowFilters] = useState(false);
   const [labelsExpanded, setLabelsExpanded] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Функция для получения стилей в зависимости от темы
+  const getThemeStyles = () => {
+    if (isDarkMode) {
+      return {
+        background: '#1a1a1a',
+        surface: '#2d2d2d',
+        text: '#ffffff',
+        textSecondary: '#b3b3b3',
+        border: '#404040',
+        accent: '#3b82f6',
+        card: '#2d2d2d',
+        input: '#404040',
+        placeholder: '#666666'
+      };
+    } else {
+      return {
+        background: '#ffffff',
+        surface: '#f8fafc',
+        text: '#1f2937',
+        textSecondary: '#6b7280',
+        border: '#e5e7eb',
+        accent: '#3b82f6',
+        card: '#ffffff',
+        input: '#ffffff',
+        placeholder: '#9ca3af'
+      };
+    }
+  };
+
+  const theme = getThemeStyles();
 
   const statusOptions = [
     { label: 'Черновик', value: 'draft' },
@@ -564,14 +598,15 @@ function App() {
 
   return (
     <Theme preset={presetGpnDefault}>
-      <Layout direction="column" style={{ height: '100vh' }}>
+      <Layout direction="column" style={{ height: '100vh', backgroundColor: theme.background, color: theme.text }}>
         {/* Header */}
         <div style={{ 
           padding: '16px', 
-          borderBottom: '1px solid #e1e5e9', 
+          borderBottom: `1px solid ${theme.border}`, 
           display: 'flex', 
           justifyContent: 'space-between', 
-          alignItems: 'center' 
+          alignItems: 'center',
+          backgroundColor: theme.card
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Button 
@@ -585,6 +620,15 @@ function App() {
             <Text size="l" weight="bold">DSTestCaseViewer</Text>
           </div>
           <div style={{ display: 'flex', gap: '8px' }}>
+            <Button 
+              size="s" 
+              view="ghost" 
+              iconLeft={isDarkMode ? IconSun : IconMoon} 
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              title={isDarkMode ? 'Переключить на светлую тему' : 'Переключить на темную тему'}
+            >
+              {isDarkMode ? 'Светлая' : 'Темная'}
+            </Button>
             <Button size="s" view="ghost" iconLeft={IconFolderClosed} onClick={() => setShowFolderModal(true)}>
               Создать папку
             </Button>
@@ -604,7 +648,7 @@ function App() {
         <Layout direction="row" style={{ flex: 1, overflow: 'hidden' }}>
           {/* Sidebar */}
           {sidebarVisible && (
-            <Layout direction="column" style={{ width: '300px', borderRight: '1px solid #e1e5e9', padding: '16px', overflow: 'hidden' }}>
+            <Layout direction="column" style={{ width: '300px', borderRight: `1px solid ${theme.border}`, padding: '16px', overflow: 'hidden', backgroundColor: theme.surface }}>
             <div style={{ marginBottom: '16px' }}>
               <Text size="l" weight="bold">
                 Тест-кейсы ({hasActiveFilters() || searchQuery ? 
@@ -1109,7 +1153,7 @@ function App() {
           )}
           
           {/* Content Area */}
-          <Layout direction="column" style={{ flex: 1, padding: '20px', overflow: 'auto' }}>
+          <Layout direction="column" style={{ flex: 1, padding: '20px', overflow: 'auto', backgroundColor: theme.background }}>
             {selectedTestCase ? (
               <div>
                 {/* Header with actions */}
