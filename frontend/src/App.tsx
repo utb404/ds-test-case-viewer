@@ -69,6 +69,7 @@ function App() {
     tags: [] as string[]
   });
   const [showFilters, setShowFilters] = useState(false);
+  const [labelsExpanded, setLabelsExpanded] = useState(false);
 
   const statusOptions = [
     { label: 'Черновик', value: 'draft' },
@@ -1585,6 +1586,264 @@ function App() {
                         </div>
                       </Card>
                     )}
+
+                    {/* Labels Block */}
+                    <Card style={{ 
+                      marginBottom: '20px', 
+                      padding: '20px',
+                      backgroundColor: '#fef3c7',
+                      border: '1px solid #fbbf24',
+                      borderRadius: '8px',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                    }}>
+                      <div 
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginBottom: labelsExpanded ? '12px' : '0',
+                          paddingBottom: labelsExpanded ? '8px' : '0',
+                          borderBottom: labelsExpanded ? '2px solid #f59e0b' : 'none',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => setLabelsExpanded(!labelsExpanded)}
+                      >
+                        <div style={{
+                          width: '4px',
+                          height: '20px',
+                          backgroundColor: '#f59e0b',
+                          marginRight: '12px',
+                          borderRadius: '2px'
+                        }}></div>
+                        <Text size="l" weight="bold" style={{ color: '#f59e0b' }}>Labels</Text>
+                        <div style={{ marginLeft: 'auto', marginRight: '8px' }}>
+                          {labelsExpanded ? '▼' : '▶'}
+                        </div>
+                      </div>
+                      
+                      {labelsExpanded && (
+                        <div style={{ marginTop: '16px' }}>
+                          {/* Epic */}
+                          <div style={{ marginBottom: '12px' }}>
+                            <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                              Epic *
+                            </label>
+                            <input
+                              type="text"
+                              value={selectedTestCase.labels?.find(l => l.name === 'epic')?.value || ''}
+                              onChange={(e) => {
+                                const newLabels = [...(selectedTestCase.labels || [])];
+                                const epicIndex = newLabels.findIndex(l => l.name === 'epic');
+                                if (epicIndex >= 0) {
+                                  newLabels[epicIndex].value = e.target.value;
+                                } else {
+                                  newLabels.push({ name: 'epic', value: e.target.value });
+                                }
+                                setSelectedTestCase({ ...selectedTestCase, labels: newLabels });
+                              }}
+                              style={{
+                                width: '100%',
+                                padding: '8px 12px',
+                                border: '1px solid #d1d5db',
+                                borderRadius: '4px',
+                                fontSize: '14px',
+                                outline: 'none'
+                              }}
+                              placeholder="Введите epic"
+                            />
+                          </div>
+
+                          {/* Feature */}
+                          <div style={{ marginBottom: '12px' }}>
+                            <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                              Feature *
+                            </label>
+                            <input
+                              type="text"
+                              value={selectedTestCase.labels?.find(l => l.name === 'feature')?.value || ''}
+                              onChange={(e) => {
+                                const newLabels = [...(selectedTestCase.labels || [])];
+                                const featureIndex = newLabels.findIndex(l => l.name === 'feature');
+                                if (featureIndex >= 0) {
+                                  newLabels[featureIndex].value = e.target.value;
+                                } else {
+                                  newLabels.push({ name: 'feature', value: e.target.value });
+                                }
+                                setSelectedTestCase({ ...selectedTestCase, labels: newLabels });
+                              }}
+                              style={{
+                                width: '100%',
+                                padding: '8px 12px',
+                                border: '1px solid #d1d5db',
+                                borderRadius: '4px',
+                                fontSize: '14px',
+                                outline: 'none'
+                              }}
+                              placeholder="Введите feature"
+                            />
+                          </div>
+
+                          {/* Story */}
+                          <div style={{ marginBottom: '12px' }}>
+                            <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                              Story *
+                            </label>
+                            <input
+                              type="text"
+                              value={selectedTestCase.labels?.find(l => l.name === 'story')?.value || ''}
+                              onChange={(e) => {
+                                const newLabels = [...(selectedTestCase.labels || [])];
+                                const storyIndex = newLabels.findIndex(l => l.name === 'story');
+                                if (storyIndex >= 0) {
+                                  newLabels[storyIndex].value = e.target.value;
+                                } else {
+                                  newLabels.push({ name: 'story', value: e.target.value });
+                                }
+                                setSelectedTestCase({ ...selectedTestCase, labels: newLabels });
+                              }}
+                              style={{
+                                width: '100%',
+                                padding: '8px 12px',
+                                border: '1px solid #d1d5db',
+                                borderRadius: '4px',
+                                fontSize: '14px',
+                                outline: 'none'
+                              }}
+                              placeholder="Введите story"
+                            />
+                          </div>
+
+                          {/* Custom Labels */}
+                          <div style={{ marginTop: '16px' }}>
+                            <Text size="m" weight="bold" style={{ marginBottom: '8px', color: '#374151' }}>
+                              Дополнительные поля
+                            </Text>
+                            {(selectedTestCase.labels || [])
+                              .filter(l => !['epic', 'feature', 'story'].includes(l.name))
+                              .map((label, index) => (
+                                <div key={index} style={{ 
+                                  display: 'flex', 
+                                  gap: '8px', 
+                                  marginBottom: '8px',
+                                  alignItems: 'center'
+                                }}>
+                                  <input
+                                    type="text"
+                                    value={label.name}
+                                    onChange={(e) => {
+                                      const newLabels = [...(selectedTestCase.labels || [])];
+                                      const labelIndex = newLabels.findIndex(l => l === label);
+                                      if (labelIndex >= 0) {
+                                        newLabels[labelIndex].name = e.target.value;
+                                        setSelectedTestCase({ ...selectedTestCase, labels: newLabels });
+                                      }
+                                    }}
+                                    style={{
+                                      flex: 1,
+                                      padding: '8px 12px',
+                                      border: '1px solid #d1d5db',
+                                      borderRadius: '4px',
+                                      fontSize: '14px',
+                                      outline: 'none'
+                                    }}
+                                    placeholder="Ключ"
+                                  />
+                                  <input
+                                    type="text"
+                                    value={label.value}
+                                    onChange={(e) => {
+                                      const newLabels = [...(selectedTestCase.labels || [])];
+                                      const labelIndex = newLabels.findIndex(l => l === label);
+                                      if (labelIndex >= 0) {
+                                        newLabels[labelIndex].value = e.target.value;
+                                        setSelectedTestCase({ ...selectedTestCase, labels: newLabels });
+                                      }
+                                    }}
+                                    style={{
+                                      flex: 1,
+                                      padding: '8px 12px',
+                                      border: '1px solid #d1d5db',
+                                      borderRadius: '4px',
+                                      fontSize: '14px',
+                                      outline: 'none'
+                                    }}
+                                    placeholder="Значение"
+                                  />
+                                  <button
+                                    onClick={() => {
+                                      const newLabels = (selectedTestCase.labels || []).filter(l => l !== label);
+                                      setSelectedTestCase({ ...selectedTestCase, labels: newLabels });
+                                    }}
+                                    style={{
+                                      padding: '8px 12px',
+                                      backgroundColor: '#ef4444',
+                                      color: 'white',
+                                      border: 'none',
+                                      borderRadius: '4px',
+                                      cursor: 'pointer',
+                                      fontSize: '14px'
+                                    }}
+                                  >
+                                    ×
+                                  </button>
+                                </div>
+                              ))}
+                            
+                            <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+                              <button
+                                onClick={() => {
+                                  const newLabels = [...(selectedTestCase.labels || []), { name: '', value: '' }];
+                                  setSelectedTestCase({ ...selectedTestCase, labels: newLabels });
+                                }}
+                                style={{
+                                  padding: '8px 16px',
+                                  backgroundColor: '#3b82f6',
+                                  color: 'white',
+                                  border: 'none',
+                                  borderRadius: '4px',
+                                  cursor: 'pointer',
+                                  fontSize: '14px'
+                                }}
+                              >
+                                + Добавить поле
+                              </button>
+                              
+                              <button
+                                onClick={async () => {
+                                  try {
+                                    const response = await fetch(`http://localhost:8000/api/test-cases/${selectedTestCase.id}`, {
+                                      method: 'PUT',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify({ labels: selectedTestCase.labels })
+                                    });
+                                    
+                                    if (response.ok) {
+                                      const updated = await response.json();
+                                      setTestCases(testCases.map(tc => tc.id === selectedTestCase.id ? updated : tc));
+                                      setSelectedTestCase(updated);
+                                      alert('Labels сохранены!');
+                                    }
+                                  } catch (error) {
+                                    console.error('Error saving labels:', error);
+                                    alert('Ошибка при сохранении labels');
+                                  }
+                                }}
+                                style={{
+                                  padding: '8px 16px',
+                                  backgroundColor: '#10b981',
+                                  color: 'white',
+                                  border: 'none',
+                                  borderRadius: '4px',
+                                  cursor: 'pointer',
+                                  fontSize: '14px'
+                                }}
+                              >
+                                💾 Сохранить Labels
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </Card>
                   </div>
                 )}
               </div>
