@@ -1937,11 +1937,96 @@ function App() {
                 )}
               </div>
             ) : (
-              <div style={{ textAlign: 'center', padding: '40px' }}>
-                <Text size="l">Выберите тест-кейс для просмотра</Text>
-                <div style={{ marginTop: '16px' }}>
-                  <Text view="secondary">Всего тест-кейсов: {testCases.length}</Text>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                minHeight: '400px',
+                padding: '60px 40px',
+                backgroundColor: '#f8fafc',
+                borderRadius: '12px',
+                border: '2px dashed #e2e8f0',
+                margin: '20px'
+              }}>
+                {/* Icon */}
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  backgroundColor: '#3b82f6',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '24px',
+                  boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
+                }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    backgroundColor: 'white',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '20px',
+                    color: '#3b82f6'
+                  }}>
+                    📋
+                  </div>
                 </div>
+
+                {/* Title */}
+                <Text size="xl" weight="bold" style={{ 
+                  color: '#1f2937', 
+                  marginBottom: '8px',
+                  textAlign: 'center'
+                }}>
+                  Выберите тест-кейс для просмотра
+                </Text>
+
+                {/* Description */}
+                <Text size="m" style={{ 
+                  color: '#6b7280', 
+                  marginBottom: '24px',
+                  textAlign: 'center',
+                  maxWidth: '400px',
+                  lineHeight: '1.5'
+                }}>
+                  Выберите тест-кейс из списка слева, чтобы просмотреть его детали, 
+                  отредактировать или выполнить другие действия
+                </Text>
+
+                {/* Stats */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '12px 20px',
+                  backgroundColor: 'white',
+                  borderRadius: '8px',
+                  border: '1px solid #e5e7eb',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                }}>
+                  <div style={{
+                    width: '8px',
+                    height: '8px',
+                    backgroundColor: '#10b981',
+                    borderRadius: '50%'
+                  }}></div>
+                  <Text size="m" weight="medium" style={{ color: '#374151' }}>
+                    Всего тест-кейсов: <span style={{ color: '#3b82f6', fontWeight: 'bold' }}>{testCases.length}</span>
+                  </Text>
+                </div>
+
+                {/* Additional info */}
+                {testCases.length > 0 && (
+                  <div style={{ marginTop: '16px' }}>
+                    <Text size="s" style={{ color: '#9ca3af' }}>
+                      💡 Совет: Используйте поиск или фильтры для быстрого поиска нужного тест-кейса
+                    </Text>
+                  </div>
+                )}
               </div>
             )}
           </Layout>
