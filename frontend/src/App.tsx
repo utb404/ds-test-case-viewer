@@ -210,6 +210,7 @@ function App() {
 
   const handleCreateTestCase = async () => {
     try {
+      console.log('Creating test case with data:', newTestCase);
       const testCaseData = {
         title: newTestCase.title || 'Новый тест-кейс',
         author: newTestCase.author || 'Автор',
@@ -586,7 +587,11 @@ function App() {
             <Button size="s" view="ghost" iconLeft={IconFolderClosed} onClick={() => setShowFolderModal(true)}>
               Создать папку
             </Button>
-            <Button size="s" view="ghost" iconLeft={IconAdd} onClick={() => setShowCreateModal(true)}>
+            <Button size="s" view="ghost" iconLeft={IconAdd} onClick={() => {
+              console.log('Opening create modal, clearing newTestCase');
+              setNewTestCase({});
+              setShowCreateModal(true);
+            }}>
               Создать тест-кейс
             </Button>
             <Button size="s" view="ghost" iconLeft={IconDownload} onClick={handleExport}>
@@ -1605,7 +1610,10 @@ function App() {
               <TextField
                 label="Название"
                 value={newTestCase.title || ''}
-                onChange={({ value }) => setNewTestCase({ ...newTestCase, title: value })}
+                onChange={({ value }) => {
+                  console.log('Setting title:', value);
+                  setNewTestCase({ ...newTestCase, title: value });
+                }}
                 size="s"
               />
             </div>
@@ -1614,7 +1622,10 @@ function App() {
               <TextField
                 label="Автор"
                 value={newTestCase.author || ''}
-                onChange={({ value }) => setNewTestCase({ ...newTestCase, author: value })}
+                onChange={({ value }) => {
+                  console.log('Setting author:', value);
+                  setNewTestCase({ ...newTestCase, author: value });
+                }}
                 size="s"
               />
             </div>
