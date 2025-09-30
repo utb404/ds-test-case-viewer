@@ -210,7 +210,6 @@ function App() {
 
   const handleCreateTestCase = async () => {
     try {
-      console.log('Creating test case with data:', newTestCase);
       const testCaseData = {
         title: newTestCase.title || 'Новый тест-кейс',
         author: newTestCase.author || 'Автор',
@@ -588,7 +587,6 @@ function App() {
               Создать папку
             </Button>
             <Button size="s" view="ghost" iconLeft={IconAdd} onClick={() => {
-              console.log('Opening create modal, clearing newTestCase');
               setNewTestCase({});
               setShowCreateModal(true);
             }}>
@@ -1612,7 +1610,6 @@ function App() {
                 type="text"
                 value={newTestCase.title || ''}
                 onChange={(e) => {
-                  console.log('Setting title:', e.target.value);
                   setNewTestCase({ ...newTestCase, title: e.target.value });
                 }}
                 style={{
@@ -1633,7 +1630,6 @@ function App() {
                 type="text"
                 value={newTestCase.author || ''}
                 onChange={(e) => {
-                  console.log('Setting author:', e.target.value);
                   setNewTestCase({ ...newTestCase, author: e.target.value });
                 }}
                 style={{
