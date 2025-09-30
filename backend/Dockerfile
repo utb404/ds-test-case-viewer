@@ -1,0 +1,20 @@
+FROM python:3.11-slim
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+
+WORKDIR /app
+
+# Copy requirements file
+COPY requirements.txt ./
+
+# Install dependencies using pip (faster and more reliable for Docker)
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+EXPOSE 8000
+
+# Run the application using uvicorn directly
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
