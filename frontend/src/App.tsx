@@ -219,7 +219,8 @@ function App() {
         status: newTestCase.status || 'draft',
         tags: newTestCase.tags || [],
         steps: newTestCase.steps || [],
-        labels: newTestCase.labels || []
+        labels: newTestCase.labels || [],
+        folder_id: newTestCase.folder_id || null
       };
 
       const response = await fetch('http://localhost:8000/api/test-cases', {
@@ -2155,6 +2156,25 @@ function App() {
                 items={statusOptions}
                 value={statusOptions.find(s => s.value === newTestCase.status)}
                 onChange={({ value }) => setNewTestCase({ ...newTestCase, status: value?.value || 'draft' })}
+                size="s"
+              />
+            </div>
+            
+            <div style={{ marginBottom: '20px' }}>
+              <Select
+                label="Папка"
+                items={[
+                  { label: 'Без папки', value: null },
+                  ...folders.map(folder => ({
+                    label: folder.name,
+                    value: folder.id
+                  }))
+                ]}
+                value={newTestCase.folder_id ? 
+                  { label: folders.find(f => f.id === newTestCase.folder_id)?.name || 'Неизвестная папка', value: newTestCase.folder_id } : 
+                  { label: 'Без папки', value: null }
+                }
+                onChange={({ value }) => setNewTestCase({ ...newTestCase, folder_id: value?.value || null })}
                 size="s"
               />
             </div>
