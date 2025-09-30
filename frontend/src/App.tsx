@@ -1607,26 +1607,44 @@ function App() {
             <Text size="l" weight="bold" style={{ marginBottom: '20px' }}>Создать новый тест-кейс</Text>
             
             <div style={{ marginBottom: '16px' }}>
-              <TextField
-                label="Название"
+              <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500' }}>Название</label>
+              <input
+                type="text"
                 value={newTestCase.title || ''}
-                onChange={({ value }) => {
-                  console.log('Setting title:', value);
-                  setNewTestCase({ ...newTestCase, title: value });
+                onChange={(e) => {
+                  console.log('Setting title:', e.target.value);
+                  setNewTestCase({ ...newTestCase, title: e.target.value });
                 }}
-                size="s"
+                style={{
+                  width: '100%',
+                  padding: '8px 12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  outline: 'none'
+                }}
+                placeholder="Введите название тест-кейса"
               />
             </div>
             
             <div style={{ marginBottom: '16px' }}>
-              <TextField
-                label="Автор"
+              <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500' }}>Автор</label>
+              <input
+                type="text"
                 value={newTestCase.author || ''}
-                onChange={({ value }) => {
-                  console.log('Setting author:', value);
-                  setNewTestCase({ ...newTestCase, author: value });
+                onChange={(e) => {
+                  console.log('Setting author:', e.target.value);
+                  setNewTestCase({ ...newTestCase, author: e.target.value });
                 }}
-                size="s"
+                style={{
+                  width: '100%',
+                  padding: '8px 12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  outline: 'none'
+                }}
+                placeholder="Введите имя автора"
               />
             </div>
             
