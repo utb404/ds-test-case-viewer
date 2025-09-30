@@ -903,70 +903,100 @@ function App() {
                           {/* Тест-кейсы в подпапке */}
                           {expandedFolders.has(childFolder.id) && (
                             <div style={{ marginLeft: '16px' }}>
-                              {getTestCasesInFolder(childFolder.id)
-                                .map(testCase => (
-                                <div
-                                  key={testCase.id}
-                                  style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    padding: '6px',
-                                    cursor: 'pointer',
-                                    backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
-                                    borderRadius: '4px',
-                                    marginBottom: '2px',
-                                    border: '1px solid #e1e5e9'
-                                  }}
-                                  onClick={() => setSelectedTestCase(testCase)}
-                                >
-                                  <IconDocFilled size="xs" style={{ marginRight: '6px' }} />
-                                  <div>
-                                    <Text size="xs" weight="bold">{testCase.title}</Text>
-                                    <div style={{ marginTop: '2px' }}>
-                                      <Text size="xs" view="secondary">Автор: {testCase.author}</Text>
+                              {getTestCasesInFolder(childFolder.id).length > 0 ? (
+                                getTestCasesInFolder(childFolder.id)
+                                  .map(testCase => (
+                                  <div
+                                    key={testCase.id}
+                                    style={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      padding: '6px',
+                                      cursor: 'pointer',
+                                      backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
+                                      borderRadius: '4px',
+                                      marginBottom: '2px',
+                                      border: '1px solid #e1e5e9'
+                                    }}
+                                    onClick={() => setSelectedTestCase(testCase)}
+                                  >
+                                    <IconDocFilled size="xs" style={{ marginRight: '6px' }} />
+                                    <div>
+                                      <Text size="xs" weight="bold">{testCase.title}</Text>
+                                      <div style={{ marginTop: '2px' }}>
+                                        <Text size="xs" view="secondary">Автор: {testCase.author}</Text>
+                                      </div>
                                     </div>
                                   </div>
+                                ))
+                              ) : (
+                                <div style={{
+                                  marginLeft: '16px',
+                                  padding: '12px',
+                                  backgroundColor: '#f8fafc',
+                                  borderRadius: '6px',
+                                  border: '1px dashed #cbd5e1',
+                                  textAlign: 'center'
+                                }}>
+                                  <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic' }}>
+                                    📄 Тест-кейсов в этой папке нет
+                                  </Text>
                                 </div>
-                              ))}
+                              )}
                             </div>
                           )}
                         </div>
                       ))}
 
                       {/* Тест-кейсы в корневой папке */}
-                      {getTestCasesInFolder(folder.id)
-                        .map((testCase, index) => (
-                        <Draggable key={testCase.id} draggableId={`testcase-${testCase.id}`} index={index}>
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                padding: '6px',
-                                cursor: 'pointer',
-                                backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
-                                borderRadius: '4px',
-                                marginBottom: '2px',
-                                border: '1px solid #e1e5e9',
-                                ...provided.draggableProps.style,
-                                opacity: snapshot.isDragging ? 0.8 : 1
-                              }}
-                              onClick={() => setSelectedTestCase(testCase)}
-                            >
-                              <IconDocFilled size="xs" style={{ marginRight: '6px' }} />
-                              <div>
-                                <Text size="xs" weight="bold">{testCase.title}</Text>
-                                <div style={{ marginTop: '2px' }}>
-                                  <Text size="xs" view="secondary">Автор: {testCase.author}</Text>
+                      {getTestCasesInFolder(folder.id).length > 0 ? (
+                        getTestCasesInFolder(folder.id)
+                          .map((testCase, index) => (
+                          <Draggable key={testCase.id} draggableId={`testcase-${testCase.id}`} index={index}>
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  padding: '6px',
+                                  cursor: 'pointer',
+                                  backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
+                                  borderRadius: '4px',
+                                  marginBottom: '2px',
+                                  border: '1px solid #e1e5e9',
+                                  ...provided.draggableProps.style,
+                                  opacity: snapshot.isDragging ? 0.8 : 1
+                                }}
+                                onClick={() => setSelectedTestCase(testCase)}
+                              >
+                                <IconDocFilled size="xs" style={{ marginRight: '6px' }} />
+                                <div>
+                                  <Text size="xs" weight="bold">{testCase.title}</Text>
+                                  <div style={{ marginTop: '2px' }}>
+                                    <Text size="xs" view="secondary">Автор: {testCase.author}</Text>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
+                            )}
+                          </Draggable>
+                        ))
+                      ) : (
+                        <div style={{
+                          padding: '12px',
+                          backgroundColor: '#f8fafc',
+                          borderRadius: '6px',
+                          border: '1px dashed #cbd5e1',
+                          textAlign: 'center',
+                          marginTop: '8px'
+                        }}>
+                          <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic' }}>
+                            📄 Тест-кейсов в этой папке нет
+                          </Text>
+                        </div>
+                      )}
                           {provided.placeholder}
                         </div>
                       )}
