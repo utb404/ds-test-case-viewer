@@ -271,3 +271,6 @@ Thumbs.db
 # Project specific
 sample_data.json
 backend/sample_data.json
+
+# Playwright MCP
+.playwright-mcp/
