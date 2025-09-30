@@ -665,7 +665,7 @@ function App() {
               onClick={() => setSidebarVisible(!sidebarVisible)}
               style={{ marginRight: '8px' }}
             />
-            <IconCheck size="m" style={{ color: '#1890ff' }} />
+            <IconCheck size="m" style={{ color: theme.accent }} />
             <Text size="l" weight="bold">DSTestCaseViewer</Text>
           </div>
           <div style={{ display: 'flex', gap: '8px' }}>
@@ -716,7 +716,7 @@ function App() {
                 style={{
                   width: '100%',
                   padding: '8px',
-                  border: '1px solid #e1e5e9',
+                  border: `1px solid ${theme.border}`,
                   borderRadius: '4px'
                 }}
               />
@@ -750,7 +750,7 @@ function App() {
                       view="ghost"
                       iconLeft={IconClose}
                       onClick={clearFilters}
-                      style={{ color: '#dc2626' }}
+                      style={{ color: theme.error }}
                     >
                       Очистить
                     </Button>
@@ -768,7 +768,7 @@ function App() {
                 }}>
                   {/* Фильтр по автору */}
                   <div style={{ marginBottom: '16px' }}>
-                    <Text size="s" weight="bold" style={{ marginBottom: '8px', color: '#374151' }}>
+                    <Text size="s" weight="bold" style={{ marginBottom: '8px', color: theme.text }}>
                       Автор
                     </Text>
                     <Select
@@ -784,7 +784,7 @@ function App() {
 
                   {/* Фильтр по статусу */}
                   <div style={{ marginBottom: '16px' }}>
-                    <Text size="s" weight="bold" style={{ marginBottom: '8px', color: '#374151' }}>
+                    <Text size="s" weight="bold" style={{ marginBottom: '8px', color: theme.text }}>
                       Статус
                     </Text>
                     <Select
@@ -800,7 +800,7 @@ function App() {
 
                   {/* Фильтр по тегам */}
                   <div>
-                    <Text size="s" weight="bold" style={{ marginBottom: '8px', color: '#374151' }}>
+                    <Text size="s" weight="bold" style={{ marginBottom: '8px', color: theme.text }}>
                       Теги
                     </Text>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -816,7 +816,7 @@ function App() {
                           style={{
                             padding: '4px 8px',
                             fontSize: '12px',
-                            border: '1px solid #d1d5db',
+                            border: `1px solid ${theme.border}`,
                             borderRadius: '16px',
                             backgroundColor: filters.tags.includes(tag) ? theme.success : theme.card,
                             color: filters.tags.includes(tag) ? 'white' : theme.text,
@@ -840,7 +840,7 @@ function App() {
                   <div>
                     {/* Результаты поиска/фильтров - показываем все элементы без вложенности */}
                     <div style={{ marginBottom: '16px' }}>
-                      <Text size="s" weight="bold" style={{ color: '#666' }}>
+                      <Text size="s" weight="bold" style={{ color: theme.textSecondary }}>
                         {searchQuery ? `Результаты поиска для "${searchQuery}"` : 'Результаты фильтрации'}
                       </Text>
                     </div>
@@ -877,14 +877,14 @@ function App() {
                           backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                           borderRadius: '4px',
                           marginBottom: '2px',
-                          border: '1px solid #e1e5e9'
+                          border: `1px solid ${theme.border}`
                         }}
                         onClick={() => setSelectedTestCase(testCase)}
                       >
                         <IconDocFilled size="s" style={{ marginRight: '8px' }} />
                         <div style={{ flex: 1 }}>
                           <Text size="s" weight="bold">{testCase.title}</Text>
-                          <div style={{ fontSize: '12px', color: '#666' }}>
+                          <div style={{ fontSize: '12px', color: theme.textSecondary }}>
                             Автор: {testCase.author}
                           </div>
                         </div>
@@ -893,7 +893,7 @@ function App() {
                     
                     {((searchQuery ? getSearchResults()?.testCases : getFilteredTestCases()).length === 0 && 
                       (!searchQuery || getSearchResults()?.folders.length === 0)) && (
-                      <div style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
+                      <div style={{ padding: '20px', textAlign: 'center', color: theme.textSecondary }}>
                         <Text size="s">
                           {searchQuery ? 'Ничего не найдено' : 'Нет тест-кейсов, соответствующих фильтрам'}
                         </Text>
@@ -1010,7 +1010,7 @@ function App() {
                                       backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                                       borderRadius: '4px',
                                       marginBottom: '2px',
-                                      border: '1px solid #e1e5e9'
+                                      border: `1px solid ${theme.border}`
                                     }}
                                     onClick={() => setSelectedTestCase(testCase)}
                                   >
@@ -1035,8 +1035,8 @@ function App() {
                                     cursor: 'pointer',
                                     transition: 'all 0.2s ease',
                                     ':hover': {
-                                      backgroundColor: '#e2e8f0',
-                                      borderColor: '#94a3b8'
+                                      backgroundColor: theme.hover,
+                                      borderColor: theme.border
                                     }
                                   }}
                                   onClick={() => {
@@ -1052,10 +1052,10 @@ function App() {
                                     e.currentTarget.style.borderColor = theme.border;
                                   }}
                                 >
-                                  <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic', marginBottom: '4px' }}>
+                                  <Text size="xs" style={{ color: theme.textMuted, fontStyle: 'italic', marginBottom: '4px' }}>
                                     📄 Тест-кейсов в этой папке нет
                                   </Text>
-                                  <Text size="xs" style={{ color: '#3b82f6', fontWeight: '500' }}>
+                                  <Text size="xs" style={{ color: theme.accent, fontWeight: '500' }}>
                                     + Создать тест-кейс
                                   </Text>
                                 </div>
@@ -1083,7 +1083,7 @@ function App() {
                                   backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                                   borderRadius: '4px',
                                   marginBottom: '2px',
-                                  border: '1px solid #e1e5e9',
+                                  border: `1px solid ${theme.border}`,
                                   ...provided.draggableProps.style,
                                   opacity: snapshot.isDragging ? 0.8 : 1
                                 }}
@@ -1125,10 +1125,10 @@ function App() {
                             e.currentTarget.style.borderColor = theme.border;
                           }}
                         >
-                          <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic', marginBottom: '4px' }}>
+                          <Text size="xs" style={{ color: theme.textMuted, fontStyle: 'italic', marginBottom: '4px' }}>
                             📄 Тест-кейсов в этой папке нет
                           </Text>
-                          <Text size="xs" style={{ color: '#3b82f6', fontWeight: '500' }}>
+                          <Text size="xs" style={{ color: theme.accent, fontWeight: '500' }}>
                             + Создать тест-кейс
                           </Text>
                         </div>
@@ -1171,7 +1171,7 @@ function App() {
                               backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                               borderRadius: '4px',
                               marginBottom: '4px',
-                              border: '1px solid #e1e5e9',
+                              border: `1px solid ${theme.border}`,
                               ...provided.draggableProps.style,
                               opacity: snapshot.isDragging ? 0.8 : 1
                             }}
@@ -1336,7 +1336,7 @@ function App() {
                         style={{
                           width: '100%',
                           padding: '8px',
-                          border: '1px solid #e1e5e9',
+                          border: `1px solid ${theme.border}`,
                           borderRadius: '4px',
                           minHeight: '80px',
                           resize: 'vertical'
@@ -1355,7 +1355,7 @@ function App() {
                         style={{
                           width: '100%',
                           padding: '8px',
-                          border: '1px solid #e1e5e9',
+                          border: `1px solid ${theme.border}`,
                           borderRadius: '4px',
                           minHeight: '60px',
                           resize: 'vertical'
@@ -1379,7 +1379,7 @@ function App() {
                         alignItems: 'center', 
                         marginBottom: '16px',
                         paddingBottom: '8px',
-                        borderBottom: '2px solid #22c55e'
+                        borderBottom: `2px solid ${theme.success}`
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <div style={{
@@ -1389,7 +1389,7 @@ function App() {
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
-                          <Text size="l" weight="bold" style={{ color: '#22c55e' }}>Теги</Text>
+                          <Text size="l" weight="bold" style={{ color: theme.success }}>Теги</Text>
                         </div>
                         <Button 
                           size="s" 
@@ -1459,7 +1459,7 @@ function App() {
                         alignItems: 'center', 
                         marginBottom: '16px',
                         paddingBottom: '8px',
-                        borderBottom: '2px solid #eab308'
+                        borderBottom: `2px solid ${theme.warning}`
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <div style={{
@@ -1515,14 +1515,14 @@ function App() {
                               }}>
                                 {index + 1}
                               </div>
-                              <Text size="m" weight="bold" style={{ color: '#374151' }}>Шаг {index + 1}</Text>
+                              <Text size="m" weight="bold" style={{ color: theme.text }}>Шаг {index + 1}</Text>
                             </div>
                             <Button 
                               size="s" 
                               view="ghost" 
                               iconLeft={IconTrash} 
                               onClick={() => removeStep(index)}
-                              style={{ color: '#dc2626' }}
+                              style={{ color: theme.error }}
                             >
                               Удалить
                             </Button>
@@ -1530,7 +1530,7 @@ function App() {
                           
                           <div style={{ marginBottom: '16px' }}>
                             <div style={{ marginBottom: '8px' }}>
-                              <Text size="s" weight="bold" style={{ color: '#6b7280' }}>Действие:</Text>
+                              <Text size="s" weight="bold" style={{ color: theme.textSecondary }}>Действие:</Text>
                             </div>
                             <textarea
                               value={step.step}
@@ -1538,7 +1538,7 @@ function App() {
                               style={{
                                 width: '100%',
                                 padding: '12px',
-                                border: '2px solid #e5e7eb',
+                                border: `2px solid ${theme.border}`,
                                 borderRadius: '8px',
                                 minHeight: '80px',
                                 resize: 'vertical',
@@ -1553,7 +1553,7 @@ function App() {
                           
                           <div>
                             <div style={{ marginBottom: '8px' }}>
-                              <Text size="s" weight="bold" style={{ color: '#6b7280' }}>Ожидаемый результат:</Text>
+                              <Text size="s" weight="bold" style={{ color: theme.textSecondary }}>Ожидаемый результат:</Text>
                             </div>
                             <textarea
                               value={step.expected_res}
@@ -1561,7 +1561,7 @@ function App() {
                               style={{
                                 width: '100%',
                                 padding: '12px',
-                                border: '2px solid #e5e7eb',
+                                border: `2px solid ${theme.border}`,
                                 borderRadius: '8px',
                                 minHeight: '80px',
                                 resize: 'vertical',
@@ -1591,16 +1591,16 @@ function App() {
                         alignItems: 'center',
                         marginBottom: '12px',
                         paddingBottom: '8px',
-                        borderBottom: '2px solid #f59e0b'
+                        borderBottom: `2px solid ${theme.warning}`
                       }}>
                         <div style={{
                           width: '4px',
                           height: '20px',
-                          backgroundColor: '#f59e0b',
+                          backgroundColor: theme.warning,
                           marginRight: '12px',
                           borderRadius: '2px'
                         }}></div>
-                        <Text size="l" weight="bold" style={{ color: '#f59e0b' }}>Labels</Text>
+                        <Text size="l" weight="bold" style={{ color: theme.warning }}>Labels</Text>
                       </div>
                       
                       <div style={{ marginTop: '16px' }}>
@@ -1625,7 +1625,7 @@ function App() {
                             style={{
                               width: '100%',
                               padding: '8px 12px',
-                              border: '1px solid #d1d5db',
+                              border: `1px solid ${theme.border}`,
                               borderRadius: '4px',
                               fontSize: '14px',
                               outline: 'none'
@@ -1655,7 +1655,7 @@ function App() {
                             style={{
                               width: '100%',
                               padding: '8px 12px',
-                              border: '1px solid #d1d5db',
+                              border: `1px solid ${theme.border}`,
                               borderRadius: '4px',
                               fontSize: '14px',
                               outline: 'none'
@@ -1685,7 +1685,7 @@ function App() {
                             style={{
                               width: '100%',
                               padding: '8px 12px',
-                              border: '1px solid #d1d5db',
+                              border: `1px solid ${theme.border}`,
                               borderRadius: '4px',
                               fontSize: '14px',
                               outline: 'none'
@@ -1696,7 +1696,7 @@ function App() {
 
                         {/* Custom Labels */}
                         <div style={{ marginTop: '16px' }}>
-                          <Text size="m" weight="bold" style={{ marginBottom: '8px', color: '#374151' }}>
+                          <Text size="m" weight="bold" style={{ marginBottom: '8px', color: theme.text }}>
                             Дополнительные поля
                           </Text>
                           {(editingTestCase.labels || [])
@@ -1722,7 +1722,7 @@ function App() {
                                   style={{
                                     flex: 1,
                                     padding: '8px 12px',
-                                    border: '1px solid #d1d5db',
+                                    border: `1px solid ${theme.border}`,
                                     borderRadius: '4px',
                                     fontSize: '14px',
                                     outline: 'none'
@@ -1743,7 +1743,7 @@ function App() {
                                   style={{
                                     flex: 1,
                                     padding: '8px 12px',
-                                    border: '1px solid #d1d5db',
+                                    border: `1px solid ${theme.border}`,
                                     borderRadius: '4px',
                                     fontSize: '14px',
                                     outline: 'none'
@@ -1809,16 +1809,16 @@ function App() {
                           alignItems: 'center',
                           marginBottom: '12px',
                           paddingBottom: '8px',
-                          borderBottom: '2px solid #1e40af'
+                          borderBottom: `2px solid ${theme.accent}`
                         }}>
                           <div style={{
                             width: '4px',
                             height: '20px',
-                            backgroundColor: '#1e40af',
+                            backgroundColor: theme.accent,
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
-                          <Text size="l" weight="bold" style={{ color: '#1e40af' }}>Описание</Text>
+                          <Text size="l" weight="bold" style={{ color: theme.accent }}>Описание</Text>
                         </div>
                         <Text style={{ color: '#374151', lineHeight: '1.6' }}>{selectedTestCase.description}</Text>
                       </Card>
@@ -1828,8 +1828,8 @@ function App() {
                       <Card style={{ 
                         marginBottom: '20px', 
                         padding: '20px',
-                        backgroundColor: '#f0f9ff',
-                        border: '1px solid #bae6fd',
+                        backgroundColor: isDarkMode ? '#0f1f2f' : '#f0f9ff',
+                        border: `1px solid ${isDarkMode ? '#0ea5e9' : '#bae6fd'}`,
                         borderRadius: '8px',
                         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                       }}>
@@ -1838,16 +1838,16 @@ function App() {
                           alignItems: 'center',
                           marginBottom: '12px',
                           paddingBottom: '8px',
-                          borderBottom: '2px solid #0ea5e9'
+                          borderBottom: `2px solid ${theme.info}`
                         }}>
                           <div style={{
                             width: '4px',
                             height: '20px',
-                            backgroundColor: '#0ea5e9',
+                            backgroundColor: theme.info,
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
-                          <Text size="l" weight="bold" style={{ color: '#0ea5e9' }}>Предусловия</Text>
+                          <Text size="l" weight="bold" style={{ color: theme.info }}>Предусловия</Text>
                         </div>
                         <Text style={{ color: '#374151', lineHeight: '1.6' }}>{selectedTestCase.precondition}</Text>
                       </Card>
@@ -1907,7 +1907,7 @@ function App() {
                               }}>
                                 {index + 1}
                               </div>
-                              <Text size="m" weight="bold" style={{ color: '#374151' }}>Шаг {index + 1}</Text>
+                              <Text size="m" weight="bold" style={{ color: theme.text }}>Шаг {index + 1}</Text>
                             </div>
                             <div style={{ marginBottom: '12px' }}>
                               <Text size="s" weight="bold" style={{ color: '#6b7280', marginBottom: '4px' }}>Действие:</Text>
@@ -1936,7 +1936,7 @@ function App() {
                           alignItems: 'center',
                           marginBottom: '12px',
                           paddingBottom: '8px',
-                          borderBottom: '2px solid #22c55e'
+                          borderBottom: `2px solid ${theme.success}`
                         }}>
                           <div style={{
                             width: '4px',
@@ -1945,7 +1945,7 @@ function App() {
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
-                          <Text size="l" weight="bold" style={{ color: '#22c55e' }}>Теги</Text>
+                          <Text size="l" weight="bold" style={{ color: theme.success }}>Теги</Text>
                         </div>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                           {selectedTestCase.tags.map((tag, index) => (
@@ -1991,11 +1991,11 @@ function App() {
                         <div style={{
                           width: '4px',
                           height: '20px',
-                          backgroundColor: '#f59e0b',
+                          backgroundColor: theme.warning,
                           marginRight: '12px',
                           borderRadius: '2px'
                         }}></div>
-                        <Text size="l" weight="bold" style={{ color: '#f59e0b' }}>Labels</Text>
+                        <Text size="l" weight="bold" style={{ color: theme.warning }}>Labels</Text>
                         <div style={{ marginLeft: 'auto', marginRight: '8px' }}>
                           {labelsExpanded ? '▼' : '▶'}
                         </div>
@@ -2059,7 +2059,7 @@ function App() {
                             .filter(l => !['epic', 'feature', 'story'].includes(l.name))
                             .length > 0 && (
                             <div style={{ marginTop: '16px' }}>
-                              <Text size="m" weight="bold" style={{ marginBottom: '8px', color: '#374151' }}>
+                              <Text size="m" weight="bold" style={{ marginBottom: '8px', color: theme.text }}>
                                 Дополнительные поля
                               </Text>
                               {(selectedTestCase.labels || [])
@@ -2074,7 +2074,7 @@ function App() {
                                   }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                       <div>
-                                        <Text size="s" weight="bold" style={{ color: '#6b7280' }}>{label.name}:</Text>
+                                        <Text size="s" weight="bold" style={{ color: theme.textSecondary }}>{label.name}:</Text>
                                         <div style={{ marginTop: '4px', color: '#374151', fontSize: '14px' }}>
                                           {label.value}
                                         </div>
@@ -2214,7 +2214,7 @@ function App() {
                 style={{
                   width: '100%',
                   padding: '8px 12px',
-                  border: '1px solid #d1d5db',
+                  border: `1px solid ${theme.border}`,
                   borderRadius: '4px',
                   fontSize: '14px',
                   outline: 'none'
@@ -2234,7 +2234,7 @@ function App() {
                 style={{
                   width: '100%',
                   padding: '8px 12px',
-                  border: '1px solid #d1d5db',
+                  border: `1px solid ${theme.border}`,
                   borderRadius: '4px',
                   fontSize: '14px',
                   outline: 'none'
@@ -2305,7 +2305,7 @@ function App() {
                 style={{
                   width: '100%',
                   padding: '8px',
-                  border: '1px solid #e1e5e9',
+                  border: `1px solid ${theme.border}`,
                   borderRadius: '4px'
                 }}
                 placeholder="Введите название папки"
