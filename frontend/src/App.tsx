@@ -930,16 +930,39 @@ function App() {
                                   </div>
                                 ))
                               ) : (
-                                <div style={{
-                                  marginLeft: '16px',
-                                  padding: '12px',
-                                  backgroundColor: '#f8fafc',
-                                  borderRadius: '6px',
-                                  border: '1px dashed #cbd5e1',
-                                  textAlign: 'center'
-                                }}>
-                                  <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic' }}>
+                                <div 
+                                  style={{
+                                    marginLeft: '16px',
+                                    padding: '12px',
+                                    backgroundColor: '#f8fafc',
+                                    borderRadius: '6px',
+                                    border: '1px dashed #cbd5e1',
+                                    textAlign: 'center',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    ':hover': {
+                                      backgroundColor: '#e2e8f0',
+                                      borderColor: '#94a3b8'
+                                    }
+                                  }}
+                                  onClick={() => {
+                                    setNewTestCase({ folder_id: childFolder.id });
+                                    setShowCreateModal(true);
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = '#e2e8f0';
+                                    e.currentTarget.style.borderColor = '#94a3b8';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = '#f8fafc';
+                                    e.currentTarget.style.borderColor = '#cbd5e1';
+                                  }}
+                                >
+                                  <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic', marginBottom: '4px' }}>
                                     📄 Тест-кейсов в этой папке нет
+                                  </Text>
+                                  <Text size="xs" style={{ color: '#3b82f6', fontWeight: '500' }}>
+                                    + Создать тест-кейс
                                   </Text>
                                 </div>
                               )}
@@ -984,16 +1007,35 @@ function App() {
                           </Draggable>
                         ))
                       ) : (
-                        <div style={{
-                          padding: '12px',
-                          backgroundColor: '#f8fafc',
-                          borderRadius: '6px',
-                          border: '1px dashed #cbd5e1',
-                          textAlign: 'center',
-                          marginTop: '8px'
-                        }}>
-                          <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic' }}>
+                        <div 
+                          style={{
+                            padding: '12px',
+                            backgroundColor: '#f8fafc',
+                            borderRadius: '6px',
+                            border: '1px dashed #cbd5e1',
+                            textAlign: 'center',
+                            marginTop: '8px',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
+                          }}
+                          onClick={() => {
+                            setNewTestCase({ folder_id: folder.id });
+                            setShowCreateModal(true);
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#e2e8f0';
+                            e.currentTarget.style.borderColor = '#94a3b8';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '#f8fafc';
+                            e.currentTarget.style.borderColor = '#cbd5e1';
+                          }}
+                        >
+                          <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic', marginBottom: '4px' }}>
                             📄 Тест-кейсов в этой папке нет
+                          </Text>
+                          <Text size="xs" style={{ color: '#3b82f6', fontWeight: '500' }}>
+                            + Создать тест-кейс
                           </Text>
                         </div>
                       )}
