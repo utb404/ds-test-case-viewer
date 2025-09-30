@@ -1410,6 +1410,221 @@ function App() {
                         </div>
                       ))}
                     </div>
+
+                    {/* Labels Block in Edit Mode */}
+                    <Card style={{ 
+                      marginBottom: '20px', 
+                      padding: '20px',
+                      backgroundColor: '#fef3c7',
+                      border: '1px solid #fbbf24',
+                      borderRadius: '8px',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        marginBottom: '12px',
+                        paddingBottom: '8px',
+                        borderBottom: '2px solid #f59e0b'
+                      }}>
+                        <div style={{
+                          width: '4px',
+                          height: '20px',
+                          backgroundColor: '#f59e0b',
+                          marginRight: '12px',
+                          borderRadius: '2px'
+                        }}></div>
+                        <Text size="l" weight="bold" style={{ color: '#f59e0b' }}>Labels</Text>
+                      </div>
+                      
+                      <div style={{ marginTop: '16px' }}>
+                        {/* Epic */}
+                        <div style={{ marginBottom: '12px' }}>
+                          <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                            Epic *
+                          </label>
+                          <input
+                            type="text"
+                            value={editingTestCase.labels?.find(l => l.name === 'epic')?.value || ''}
+                            onChange={(e) => {
+                              const newLabels = [...(editingTestCase.labels || [])];
+                              const epicIndex = newLabels.findIndex(l => l.name === 'epic');
+                              if (epicIndex >= 0) {
+                                newLabels[epicIndex].value = e.target.value;
+                              } else {
+                                newLabels.push({ name: 'epic', value: e.target.value });
+                              }
+                              setEditingTestCase({ ...editingTestCase, labels: newLabels });
+                            }}
+                            style={{
+                              width: '100%',
+                              padding: '8px 12px',
+                              border: '1px solid #d1d5db',
+                              borderRadius: '4px',
+                              fontSize: '14px',
+                              outline: 'none'
+                            }}
+                            placeholder="Введите epic"
+                          />
+                        </div>
+
+                        {/* Feature */}
+                        <div style={{ marginBottom: '12px' }}>
+                          <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                            Feature *
+                          </label>
+                          <input
+                            type="text"
+                            value={editingTestCase.labels?.find(l => l.name === 'feature')?.value || ''}
+                            onChange={(e) => {
+                              const newLabels = [...(editingTestCase.labels || [])];
+                              const featureIndex = newLabels.findIndex(l => l.name === 'feature');
+                              if (featureIndex >= 0) {
+                                newLabels[featureIndex].value = e.target.value;
+                              } else {
+                                newLabels.push({ name: 'feature', value: e.target.value });
+                              }
+                              setEditingTestCase({ ...editingTestCase, labels: newLabels });
+                            }}
+                            style={{
+                              width: '100%',
+                              padding: '8px 12px',
+                              border: '1px solid #d1d5db',
+                              borderRadius: '4px',
+                              fontSize: '14px',
+                              outline: 'none'
+                            }}
+                            placeholder="Введите feature"
+                          />
+                        </div>
+
+                        {/* Story */}
+                        <div style={{ marginBottom: '12px' }}>
+                          <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                            Story *
+                          </label>
+                          <input
+                            type="text"
+                            value={editingTestCase.labels?.find(l => l.name === 'story')?.value || ''}
+                            onChange={(e) => {
+                              const newLabels = [...(editingTestCase.labels || [])];
+                              const storyIndex = newLabels.findIndex(l => l.name === 'story');
+                              if (storyIndex >= 0) {
+                                newLabels[storyIndex].value = e.target.value;
+                              } else {
+                                newLabels.push({ name: 'story', value: e.target.value });
+                              }
+                              setEditingTestCase({ ...editingTestCase, labels: newLabels });
+                            }}
+                            style={{
+                              width: '100%',
+                              padding: '8px 12px',
+                              border: '1px solid #d1d5db',
+                              borderRadius: '4px',
+                              fontSize: '14px',
+                              outline: 'none'
+                            }}
+                            placeholder="Введите story"
+                          />
+                        </div>
+
+                        {/* Custom Labels */}
+                        <div style={{ marginTop: '16px' }}>
+                          <Text size="m" weight="bold" style={{ marginBottom: '8px', color: '#374151' }}>
+                            Дополнительные поля
+                          </Text>
+                          {(editingTestCase.labels || [])
+                            .filter(l => !['epic', 'feature', 'story'].includes(l.name))
+                            .map((label, index) => (
+                              <div key={index} style={{ 
+                                display: 'flex', 
+                                gap: '8px', 
+                                marginBottom: '8px',
+                                alignItems: 'center'
+                              }}>
+                                <input
+                                  type="text"
+                                  value={label.name}
+                                  onChange={(e) => {
+                                    const newLabels = [...(editingTestCase.labels || [])];
+                                    const labelIndex = newLabels.findIndex(l => l === label);
+                                    if (labelIndex >= 0) {
+                                      newLabels[labelIndex].name = e.target.value;
+                                      setEditingTestCase({ ...editingTestCase, labels: newLabels });
+                                    }
+                                  }}
+                                  style={{
+                                    flex: 1,
+                                    padding: '8px 12px',
+                                    border: '1px solid #d1d5db',
+                                    borderRadius: '4px',
+                                    fontSize: '14px',
+                                    outline: 'none'
+                                  }}
+                                  placeholder="Ключ"
+                                />
+                                <input
+                                  type="text"
+                                  value={label.value}
+                                  onChange={(e) => {
+                                    const newLabels = [...(editingTestCase.labels || [])];
+                                    const labelIndex = newLabels.findIndex(l => l === label);
+                                    if (labelIndex >= 0) {
+                                      newLabels[labelIndex].value = e.target.value;
+                                      setEditingTestCase({ ...editingTestCase, labels: newLabels });
+                                    }
+                                  }}
+                                  style={{
+                                    flex: 1,
+                                    padding: '8px 12px',
+                                    border: '1px solid #d1d5db',
+                                    borderRadius: '4px',
+                                    fontSize: '14px',
+                                    outline: 'none'
+                                  }}
+                                  placeholder="Значение"
+                                />
+                                <button
+                                  onClick={() => {
+                                    const newLabels = (editingTestCase.labels || []).filter(l => l !== label);
+                                    setEditingTestCase({ ...editingTestCase, labels: newLabels });
+                                  }}
+                                  style={{
+                                    padding: '8px 12px',
+                                    backgroundColor: '#ef4444',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    fontSize: '14px'
+                                  }}
+                                >
+                                  ×
+                                </button>
+                              </div>
+                            ))}
+                          
+                          <button
+                            onClick={() => {
+                              const newLabels = [...(editingTestCase.labels || []), { name: '', value: '' }];
+                              setEditingTestCase({ ...editingTestCase, labels: newLabels });
+                            }}
+                            style={{
+                              padding: '8px 16px',
+                              backgroundColor: '#3b82f6',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '4px',
+                              cursor: 'pointer',
+                              fontSize: '14px',
+                              marginTop: '8px'
+                            }}
+                          >
+                            + Добавить поле
+                          </button>
+                        </div>
+                      </div>
+                    </Card>
                   </div>
                 ) : (
                   <div style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto', paddingRight: '10px' }}>
