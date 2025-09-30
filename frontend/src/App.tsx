@@ -911,7 +911,7 @@ function App() {
                       alignItems: 'center',
                       padding: '8px',
                       cursor: 'pointer',
-                      backgroundColor: '#f5f5f5',
+                      backgroundColor: theme.hover,
                       borderRadius: '4px',
                       marginBottom: '4px'
                     }}
@@ -964,7 +964,7 @@ function App() {
                               display: 'flex',
                               alignItems: 'center',
                               padding: '6px',
-                              backgroundColor: '#f9f9f9',
+                              backgroundColor: theme.surface,
                               borderRadius: '4px',
                               marginBottom: '4px'
                             }}
@@ -1465,11 +1465,11 @@ function App() {
                           <div style={{
                             width: '4px',
                             height: '20px',
-                            backgroundColor: '#eab308',
+                            backgroundColor: theme.warning,
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
-                          <Text size="l" weight="bold" style={{ color: '#eab308' }}>Шаги тестирования</Text>
+                          <Text size="l" weight="bold" style={{ color: theme.warning }}>Шаги тестирования</Text>
                         </div>
                         <Button 
                           size="s" 
@@ -1503,7 +1503,7 @@ function App() {
                               <div style={{
                                 width: '24px',
                                 height: '24px',
-                                backgroundColor: '#eab308',
+                                backgroundColor: theme.warning,
                                 color: 'white',
                                 borderRadius: '50%',
                                 display: 'flex',
@@ -1867,23 +1867,23 @@ function App() {
                           alignItems: 'center',
                           marginBottom: '16px',
                           paddingBottom: '8px',
-                          borderBottom: '2px solid #eab308'
+                          borderBottom: `2px solid ${theme.warning}`
                         }}>
                           <div style={{
                             width: '4px',
                             height: '20px',
-                            backgroundColor: '#eab308',
+                            backgroundColor: theme.warning,
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
-                          <Text size="l" weight="bold" style={{ color: '#eab308' }}>Шаги тестирования</Text>
+                          <Text size="l" weight="bold" style={{ color: theme.warning }}>Шаги тестирования</Text>
                         </div>
                         {selectedTestCase.steps.map((step, index) => (
                           <div key={index} style={{ 
                             marginBottom: '16px', 
                             padding: '16px', 
-                            backgroundColor: '#ffffff',
-                            border: '1px solid #e5e7eb',
+                            backgroundColor: theme.card,
+                            border: `1px solid ${theme.border}`,
                             borderRadius: '8px',
                             boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
                           }}>
@@ -1895,7 +1895,7 @@ function App() {
                               <div style={{
                                 width: '24px',
                                 height: '24px',
-                                backgroundColor: '#eab308',
+                                backgroundColor: theme.warning,
                                 color: 'white',
                                 borderRadius: '50%',
                                 display: 'flex',
