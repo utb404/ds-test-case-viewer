@@ -327,10 +327,16 @@ function App() {
     if (!selectedTestCase) return;
 
     try {
+      // Включаем folder_id в данные для обновления
+      const updateData = {
+        ...editingTestCase,
+        folder_id: editingTestCase.folder_id || null
+      };
+
       const response = await fetch(`http://localhost:8000/api/test-cases/${selectedTestCase.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editingTestCase)
+        body: JSON.stringify(updateData)
       });
 
         if (response.ok) {
