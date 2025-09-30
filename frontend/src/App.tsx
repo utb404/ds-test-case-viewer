@@ -78,27 +78,75 @@ function App() {
   const getThemeStyles = () => {
     if (isDarkMode) {
       return {
-        background: '#1a1a1a',
-        surface: '#2d2d2d',
-        text: '#ffffff',
-        textSecondary: '#b3b3b3',
-        border: '#404040',
-        accent: '#3b82f6',
-        card: '#2d2d2d',
-        input: '#404040',
-        placeholder: '#666666'
+        // Основные цвета
+        background: '#0f0f0f',           // Очень темный фон
+        surface: '#1a1a1a',             // Поверхности (карточки, панели)
+        surfaceElevated: '#262626',     // Приподнятые поверхности
+        text: '#ffffff',               // Основной текст
+        textSecondary: '#a3a3a3',      // Вторичный текст
+        textMuted: '#737373',          // Приглушенный текст
+        border: '#404040',             // Границы
+        borderLight: '#2a2a2a',        // Светлые границы
+        accent: '#3b82f6',             // Акцентный цвет
+        accentHover: '#2563eb',        // Акцент при наведении
+        
+        // Специальные цвета
+        card: '#1a1a1a',               // Карточки
+        input: '#262626',              // Поля ввода
+        inputBorder: '#404040',        // Границы полей ввода
+        placeholder: '#737373',        // Placeholder текст
+        hover: '#262626',              // Hover состояния
+        active: '#1f2937',            // Активные состояния
+        selected: '#1e40af',           // Выбранные элементы
+        
+        // Статусные цвета
+        success: '#10b981',            // Успех
+        warning: '#f59e0b',            // Предупреждение
+        error: '#ef4444',              // Ошибка
+        info: '#3b82f6',               // Информация
+        
+        // Специальные элементы
+        sidebar: '#111111',            // Боковая панель
+        header: '#1a1a1a',             // Заголовок
+        modal: '#1a1a1a',              // Модальные окна
+        dropdown: '#262626',           // Выпадающие списки
+        tooltip: '#262626',            // Подсказки
       };
     } else {
       return {
-        background: '#ffffff',
-        surface: '#f8fafc',
-        text: '#1f2937',
-        textSecondary: '#6b7280',
-        border: '#e5e7eb',
-        accent: '#3b82f6',
-        card: '#ffffff',
-        input: '#ffffff',
-        placeholder: '#9ca3af'
+        // Основные цвета
+        background: '#ffffff',         // Белый фон
+        surface: '#f8fafc',            // Поверхности
+        surfaceElevated: '#ffffff',     // Приподнятые поверхности
+        text: '#1f2937',               // Основной текст
+        textSecondary: '#6b7280',      // Вторичный текст
+        textMuted: '#9ca3af',          // Приглушенный текст
+        border: '#e5e7eb',             // Границы
+        borderLight: '#f3f4f6',        // Светлые границы
+        accent: '#3b82f6',             // Акцентный цвет
+        accentHover: '#2563eb',        // Акцент при наведении
+        
+        // Специальные цвета
+        card: '#ffffff',               // Карточки
+        input: '#ffffff',              // Поля ввода
+        inputBorder: '#d1d5db',        // Границы полей ввода
+        placeholder: '#9ca3af',        // Placeholder текст
+        hover: '#f9fafb',              // Hover состояния
+        active: '#f3f4f6',             // Активные состояния
+        selected: '#dbeafe',           // Выбранные элементы
+        
+        // Статусные цвета
+        success: '#10b981',            // Успех
+        warning: '#f59e0b',            // Предупреждение
+        error: '#ef4444',              // Ошибка
+        info: '#3b82f6',               // Информация
+        
+        // Специальные элементы
+        sidebar: '#f8fafc',            // Боковая панель
+        header: '#ffffff',             // Заголовок
+        modal: '#ffffff',              // Модальные окна
+        dropdown: '#ffffff',           // Выпадающие списки
+        tooltip: '#1f2937',            // Подсказки
       };
     }
   };
@@ -606,7 +654,8 @@ function App() {
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center',
-          backgroundColor: theme.card
+          backgroundColor: theme.header,
+          color: theme.text
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Button 
@@ -648,7 +697,7 @@ function App() {
         <Layout direction="row" style={{ flex: 1, overflow: 'hidden' }}>
           {/* Sidebar */}
           {sidebarVisible && (
-            <Layout direction="column" style={{ width: '300px', borderRight: `1px solid ${theme.border}`, padding: '16px', overflow: 'hidden', backgroundColor: theme.surface }}>
+            <Layout direction="column" style={{ width: '300px', borderRight: `1px solid ${theme.border}`, padding: '16px', overflow: 'hidden', backgroundColor: theme.sidebar, color: theme.text }}>
             <div style={{ marginBottom: '16px' }}>
               <Text size="l" weight="bold">
                 Тест-кейсы ({hasActiveFilters() || searchQuery ? 
@@ -689,8 +738,8 @@ function App() {
                     iconLeft={showFilters ? IconClose : IconFilter}
                     onClick={() => setShowFilters(!showFilters)}
                     style={{ 
-                      backgroundColor: showFilters ? '#e3f2fd' : 'transparent',
-                      color: showFilters ? '#1976d2' : '#666'
+                      backgroundColor: showFilters ? theme.selected : 'transparent',
+                      color: showFilters ? theme.accent : theme.textSecondary
                     }}
                   >
                     {showFilters ? 'Скрыть' : 'Показать'}
@@ -712,8 +761,8 @@ function App() {
               {showFilters && (
                 <div style={{
                   padding: '16px',
-                  backgroundColor: '#f8fafc',
-                  border: '1px solid #e2e8f0',
+                  backgroundColor: theme.surface,
+                  border: `1px solid ${theme.border}`,
                   borderRadius: '8px',
                   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                 }}>
@@ -769,8 +818,8 @@ function App() {
                             fontSize: '12px',
                             border: '1px solid #d1d5db',
                             borderRadius: '16px',
-                            backgroundColor: filters.tags.includes(tag) ? '#22c55e' : '#ffffff',
-                            color: filters.tags.includes(tag) ? 'white' : '#374151',
+                            backgroundColor: filters.tags.includes(tag) ? theme.success : theme.card,
+                            color: filters.tags.includes(tag) ? 'white' : theme.text,
                             cursor: 'pointer',
                             transition: 'all 0.2s ease'
                           }}
@@ -805,7 +854,7 @@ function App() {
                           alignItems: 'center',
                           padding: '8px',
                           cursor: 'pointer',
-                          backgroundColor: '#f5f5f5',
+                          backgroundColor: theme.hover,
                           borderRadius: '4px',
                           marginBottom: '4px'
                         }}
@@ -825,7 +874,7 @@ function App() {
                           alignItems: 'center',
                           padding: '6px',
                           cursor: 'pointer',
-                          backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
+                          backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                           borderRadius: '4px',
                           marginBottom: '2px',
                           border: '1px solid #e1e5e9'
@@ -902,7 +951,7 @@ function App() {
                           style={{ 
                             marginLeft: '20px', 
                             marginBottom: '8px',
-                            backgroundColor: snapshot.isDraggingOver ? '#e3f2fd' : 'transparent',
+                            backgroundColor: snapshot.isDraggingOver ? theme.selected : 'transparent',
                             borderRadius: '4px',
                             padding: '4px'
                           }}
@@ -958,7 +1007,7 @@ function App() {
                                       alignItems: 'center',
                                       padding: '6px',
                                       cursor: 'pointer',
-                                      backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
+                                      backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                                       borderRadius: '4px',
                                       marginBottom: '2px',
                                       border: '1px solid #e1e5e9'
@@ -979,9 +1028,9 @@ function App() {
                                   style={{
                                     marginLeft: '16px',
                                     padding: '12px',
-                                    backgroundColor: '#f8fafc',
+                                    backgroundColor: theme.surface,
                                     borderRadius: '6px',
-                                    border: '1px dashed #cbd5e1',
+                                    border: `1px dashed ${theme.border}`,
                                     textAlign: 'center',
                                     cursor: 'pointer',
                                     transition: 'all 0.2s ease',
@@ -995,12 +1044,12 @@ function App() {
                                     setShowCreateModal(true);
                                   }}
                                   onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = '#e2e8f0';
-                                    e.currentTarget.style.borderColor = '#94a3b8';
+                                    e.currentTarget.style.backgroundColor = theme.hover;
+                                    e.currentTarget.style.borderColor = theme.border;
                                   }}
                                   onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = '#f8fafc';
-                                    e.currentTarget.style.borderColor = '#cbd5e1';
+                                    e.currentTarget.style.backgroundColor = theme.surface;
+                                    e.currentTarget.style.borderColor = theme.border;
                                   }}
                                 >
                                   <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic', marginBottom: '4px' }}>
@@ -1031,7 +1080,7 @@ function App() {
                                   alignItems: 'center',
                                   padding: '6px',
                                   cursor: 'pointer',
-                                  backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
+                                  backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                                   borderRadius: '4px',
                                   marginBottom: '2px',
                                   border: '1px solid #e1e5e9',
@@ -1055,9 +1104,9 @@ function App() {
                         <div 
                           style={{
                             padding: '12px',
-                            backgroundColor: '#f8fafc',
+                            backgroundColor: theme.surface,
                             borderRadius: '6px',
-                            border: '1px dashed #cbd5e1',
+                            border: `1px dashed ${theme.border}`,
                             textAlign: 'center',
                             marginTop: '8px',
                             cursor: 'pointer',
@@ -1068,12 +1117,12 @@ function App() {
                             setShowCreateModal(true);
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = '#e2e8f0';
-                            e.currentTarget.style.borderColor = '#94a3b8';
+                            e.currentTarget.style.backgroundColor = theme.hover;
+                            e.currentTarget.style.borderColor = theme.border;
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = '#f8fafc';
-                            e.currentTarget.style.borderColor = '#cbd5e1';
+                            e.currentTarget.style.backgroundColor = theme.surface;
+                            e.currentTarget.style.borderColor = theme.border;
                           }}
                         >
                           <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic', marginBottom: '4px' }}>
@@ -1101,7 +1150,7 @@ function App() {
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                     style={{
-                      backgroundColor: snapshot.isDraggingOver ? '#e3f2fd' : 'transparent',
+                      backgroundColor: snapshot.isDraggingOver ? theme.selected : 'transparent',
                       borderRadius: '4px',
                       padding: '4px'
                     }}
@@ -1119,7 +1168,7 @@ function App() {
                               alignItems: 'center',
                               padding: '8px',
                               cursor: 'pointer',
-                              backgroundColor: selectedTestCase?.id === testCase.id ? '#e1f5fe' : '#fff',
+                              backgroundColor: selectedTestCase?.id === testCase.id ? theme.selected : theme.card,
                               borderRadius: '4px',
                               marginBottom: '4px',
                               border: '1px solid #e1e5e9',
@@ -1319,8 +1368,8 @@ function App() {
                     <div style={{ 
                       marginBottom: '24px',
                       padding: '20px',
-                      backgroundColor: '#f0fdf4',
-                      border: '1px solid #bbf7d0',
+                      backgroundColor: isDarkMode ? '#0f1f0f' : '#f0fdf4',
+                      border: `1px solid ${isDarkMode ? '#22c55e' : '#bbf7d0'}`,
                       borderRadius: '8px',
                       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                     }}>
@@ -1336,7 +1385,7 @@ function App() {
                           <div style={{
                             width: '4px',
                             height: '20px',
-                            backgroundColor: '#22c55e',
+                            backgroundColor: theme.success,
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
@@ -1347,7 +1396,7 @@ function App() {
                           view="primary" 
                           iconLeft={IconAdd} 
                           onClick={addTag}
-                          style={{ backgroundColor: '#22c55e', borderColor: '#22c55e' }}
+                          style={{ backgroundColor: theme.success, borderColor: theme.success }}
                         >
                           Добавить тег
                         </Button>
@@ -1359,7 +1408,7 @@ function App() {
                             style={{
                               display: 'flex',
                               alignItems: 'center',
-                              backgroundColor: '#22c55e',
+                              backgroundColor: theme.success,
                               color: 'white',
                               padding: '6px 12px',
                               borderRadius: '20px',
@@ -1399,8 +1448,8 @@ function App() {
                     <div style={{ 
                       marginBottom: '24px',
                       padding: '20px',
-                      backgroundColor: '#fefce8',
-                      border: '1px solid #fde047',
+                      backgroundColor: isDarkMode ? '#1f1f0f' : '#fefce8',
+                      border: `1px solid ${isDarkMode ? '#eab308' : '#fde047'}`,
                       borderRadius: '8px',
                       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                     }}>
@@ -1427,7 +1476,7 @@ function App() {
                           view="primary" 
                           iconLeft={IconAdd} 
                           onClick={addStep}
-                          style={{ backgroundColor: '#eab308', borderColor: '#eab308' }}
+                          style={{ backgroundColor: theme.warning, borderColor: theme.warning }}
                         >
                           Добавить шаг
                         </Button>
@@ -1437,9 +1486,9 @@ function App() {
                         <div key={index} style={{ 
                           marginBottom: '16px', 
                           padding: '16px', 
-                          backgroundColor: '#ffffff', 
+                          backgroundColor: theme.card, 
                           borderRadius: '8px',
-                          border: '1px solid #e5e7eb',
+                          border: `1px solid ${theme.border}`,
                           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
                         }}>
                           <div style={{ 
@@ -1495,7 +1544,7 @@ function App() {
                                 resize: 'vertical',
                                 fontSize: '14px',
                                 lineHeight: '1.5',
-                                backgroundColor: '#f9fafb',
+                                backgroundColor: theme.input,
                                 transition: 'border-color 0.2s ease'
                               }}
                               placeholder="Опишите шаг"
@@ -1518,7 +1567,7 @@ function App() {
                                 resize: 'vertical',
                                 fontSize: '14px',
                                 lineHeight: '1.5',
-                                backgroundColor: '#f9fafb',
+                                backgroundColor: theme.input,
                                 transition: 'border-color 0.2s ease'
                               }}
                               placeholder="Опишите ожидаемый результат"
@@ -1532,8 +1581,8 @@ function App() {
                     <Card style={{ 
                       marginBottom: '20px', 
                       padding: '20px',
-                      backgroundColor: '#fef3c7',
-                      border: '1px solid #fbbf24',
+                      backgroundColor: isDarkMode ? '#1f1f0f' : '#fef3c7',
+                      border: `1px solid ${isDarkMode ? '#f59e0b' : '#fbbf24'}`,
                       borderRadius: '8px',
                       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                     }}>
@@ -1708,7 +1757,7 @@ function App() {
                                   }}
                                   style={{
                                     padding: '8px 12px',
-                                    backgroundColor: '#ef4444',
+                                    backgroundColor: theme.error,
                                     color: 'white',
                                     border: 'none',
                                     borderRadius: '4px',
@@ -1728,7 +1777,7 @@ function App() {
                             }}
                             style={{
                               padding: '8px 16px',
-                              backgroundColor: '#3b82f6',
+                              backgroundColor: theme.accent,
                               color: 'white',
                               border: 'none',
                               borderRadius: '4px',
@@ -1750,8 +1799,8 @@ function App() {
                       <Card style={{ 
                         marginBottom: '20px', 
                         padding: '20px',
-                        backgroundColor: '#f8fafc',
-                        border: '1px solid #e2e8f0',
+                        backgroundColor: theme.surface,
+                        border: `1px solid ${theme.border}`,
                         borderRadius: '8px',
                         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                       }}>
@@ -1892,7 +1941,7 @@ function App() {
                           <div style={{
                             width: '4px',
                             height: '20px',
-                            backgroundColor: '#22c55e',
+                            backgroundColor: theme.success,
                             marginRight: '12px',
                             borderRadius: '2px'
                           }}></div>
@@ -1903,7 +1952,7 @@ function App() {
                             <span
                               key={index}
                               style={{
-                                backgroundColor: '#22c55e',
+                                backgroundColor: theme.success,
                                 color: 'white',
                                 padding: '6px 12px',
                                 borderRadius: '20px',
@@ -1923,8 +1972,8 @@ function App() {
                     <Card style={{ 
                       marginBottom: '20px', 
                       padding: '20px',
-                      backgroundColor: '#fef3c7',
-                      border: '1px solid #fbbf24',
+                      backgroundColor: isDarkMode ? '#1f1f0f' : '#fef3c7',
+                      border: `1px solid ${isDarkMode ? '#f59e0b' : '#fbbf24'}`,
                       borderRadius: '8px',
                       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                     }}>
@@ -2061,16 +2110,16 @@ function App() {
                 justifyContent: 'center',
                 minHeight: '400px',
                 padding: '60px 40px',
-                backgroundColor: '#f8fafc',
-                borderRadius: '12px',
-                border: '2px dashed #e2e8f0',
+        backgroundColor: theme.surface,
+        borderRadius: '12px',
+        border: `2px dashed ${theme.border}`,
                 margin: '20px'
               }}>
                 {/* Icon */}
                 <div style={{
                   width: '80px',
                   height: '80px',
-                  backgroundColor: '#3b82f6',
+                  backgroundColor: theme.accent,
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
@@ -2087,7 +2136,7 @@ function App() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '20px',
-                    color: '#3b82f6'
+                    color: theme.accent
                   }}>
                     📋
                   </div>
@@ -2120,26 +2169,26 @@ function App() {
                   alignItems: 'center',
                   gap: '12px',
                   padding: '12px 20px',
-                  backgroundColor: 'white',
-                  borderRadius: '8px',
-                  border: '1px solid #e5e7eb',
+          backgroundColor: theme.card,
+          borderRadius: '8px',
+          border: `1px solid ${theme.border}`,
                   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
                 }}>
                   <div style={{
                     width: '8px',
                     height: '8px',
-                    backgroundColor: '#10b981',
+                    backgroundColor: theme.success,
                     borderRadius: '50%'
                   }}></div>
-                  <Text size="m" weight="medium" style={{ color: '#374151' }}>
-                    Всего тест-кейсов: <span style={{ color: '#3b82f6', fontWeight: 'bold' }}>{testCases.length}</span>
+                  <Text size="m" weight="medium" style={{ color: theme.text }}>
+                    Всего тест-кейсов: <span style={{ color: theme.accent, fontWeight: 'bold' }}>{testCases.length}</span>
                   </Text>
                 </div>
 
                 {/* Additional info */}
                 {testCases.length > 0 && (
                   <div style={{ marginTop: '16px' }}>
-                    <Text size="s" style={{ color: '#9ca3af' }}>
+                    <Text size="s" style={{ color: theme.textMuted }}>
                       💡 Совет: Используйте поиск или фильтры для быстрого поиска нужного тест-кейса
                     </Text>
                   </div>
