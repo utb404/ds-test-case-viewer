@@ -220,7 +220,10 @@ dist
 
 # Gatsby files
 .cache/
-public
+# Build outputs
+*/build/
+*/dist/
+*/out/
 
 # Vuepress build output
 .vuepress/dist
